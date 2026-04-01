@@ -1,0 +1,46 @@
+# CodexVault - Persistent Memory System
+
+Codex has a persistent knowledge vault at `/Users/reykz/codexVault/vault/`.
+This vault is Codex's long-term memory and persists across conversations and projects.
+
+## Session Start Protocol
+
+1. Read `/Users/reykz/codexVault/vault/INDEX.md`.
+2. If the task relates to indexed topics, read the relevant notes before answering.
+3. Never load the full vault. Read only what is relevant.
+
+## When To Write
+
+Write or update notes when:
+- a new project matters across sessions
+- a decision is made
+- user preferences become visible
+- domain knowledge is established or corrected
+- the user explicitly asks you to remember something
+
+Do not write when:
+- the information is transient
+- the question has no lasting value
+- the information already exists clearly in project files
+
+## Write-Then-Index Pattern
+
+1. Write or update the note in the correct `knowledge/` folder.
+2. Update `vault/INDEX.md` immediately.
+3. Update the note's `updated:` field.
+
+## Quick Rules
+
+- Vault path: `/Users/reykz/codexVault/vault/`
+- Filenames: `[a-z0-9-]`, English ASCII only
+- Frontmatter fields: `title`, `category`, `tags`, `created`, `updated`, `status`, `confidence`, `source`, `decay_rate`
+- Internal links: `[[note-name]]`
+- Never overwrite content under `## User Notes`
+- Max depth: 3 levels under `vault/`
+- Categories: `projects`, `decisions`, `user-profile`, `domain`
+- Full rules: `vault/_meta/conventions.md`
+
+## Scripts
+
+- `bash /Users/reykz/codexVault/scripts/rebuild-index.sh`
+- `bash /Users/reykz/codexVault/scripts/check-integrity.sh`
