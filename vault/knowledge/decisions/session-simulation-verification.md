@@ -30,11 +30,24 @@ Am 2026-04-01 wurde ein echter End-to-End-Test fuer Codian durchgefuehrt.
 - Write in den Vault funktioniert
 - Index-Rebuild funktioniert
 - Integritaetspruefung laeuft erfolgreich
-- Das persistente Gedächtnismodell funktioniert ohne Obsidian-CLI
+- Das persistente Gedaechtnismodell funktioniert
+- Die Obsidian-CLI funktioniert live gegen `codexVault`
 
-## Einschraenkung
+## Obsidian-CLI-Verifikation
 
-Die Obsidian-CLI-Bridge auf diesem Mac ist aktuell nicht funktionsbereit. Live-Aufrufe wie `obsidian vault`, `obsidian files`, `obsidian outline` und `obsidian backlinks` brechen mit `Unable to connect to main process` ab.
+Nach einem vollstaendigen Neustart von Obsidian war die Main-Process-Bridge wieder erreichbar.
+
+Wichtige Erkenntnis:
+
+- Die korrekte Syntax lautet `obsidian vault="codexVault" <command>`
+- Die Form `obsidian <command> vault="codexVault"` adressiert den Vault nicht korrekt
+
+Erfolgreich verifiziert wurden unter anderem:
+
+- `obsidian vaults verbose`
+- `obsidian vault="codexVault" files`
+- `obsidian vault="codexVault" outline file="codian-overview"`
+- `obsidian vault="codexVault" backlinks file="codian-overview"`
 
 ## Related
 
