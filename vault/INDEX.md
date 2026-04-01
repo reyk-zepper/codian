@@ -16,6 +16,7 @@ Zentraler Einstiegspunkt fuer Codex' Wissens-Vault. Bei jedem Session-Start lese
 
 - [[codex-memory-bootstrap]] - Codian Memory Bootstrap (updated: 2026-04-01, status: current)
 - [[obsidian-cli-integration]] - Obsidian CLI Integration in Codian (updated: 2026-04-01, status: current)
+- [[session-simulation-verification]] - Session Simulation Verification (updated: 2026-04-01, status: current)
 
 
 ## User Profile
