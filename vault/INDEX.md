@@ -5,26 +5,26 @@ updated: 2026-04-01
 
 # Index
 
-Primary entrypoint for Codian persistent memory. Read first.
+Zentraler Einstiegspunkt fuer Codex' Wissens-Vault. Bei jedem Session-Start lesen.
 
 ## Projects
 
-- [[codexvault-overview]] - Codian Overview (updated: 2026-04-01, status: current)
+- [[codian-overview]] - Codian Project Overview (updated: 2026-04-01, status: current)
 
 
 ## Decisions
 
 - [[codex-memory-bootstrap]] - Codian Memory Bootstrap (updated: 2026-04-01, status: current)
-- [[memory-boundaries]] - Memory Boundaries (updated: 2026-04-01, status: current)
-- [[obsidian-cli-integration]] - Obsidian CLI Integration (updated: 2026-04-01, status: current)
+- [[obsidian-cli-integration]] - Obsidian CLI Integration in Codian (updated: 2026-04-01, status: current)
 
 
 ## User Profile
 
-- [[working-preferences]] - Working Preferences (updated: 2026-04-01, status: current)
+- [[preferences]] - Benutzer-Praeferenzen (updated: 2026-04-01, status: current)
+- [[role-and-identity]] - Rolle und Identitaet (updated: 2026-04-01, status: current)
 
 
 ## Domain
 
-- [[obsidian-vault-pattern]] - Obsidian Vault Pattern (updated: 2026-04-01, status: current)
+- [[home-server-mcp-access]] - Homeserver: MCP-Zugriffsgrenzen (updated: 2026-04-01, status: current)
 

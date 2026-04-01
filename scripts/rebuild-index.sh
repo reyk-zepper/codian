@@ -84,7 +84,7 @@ write_section() {
     if [ -s "$bucket" ]; then
         cat "$bucket"
     else
-        echo "_No entries yet._"
+        echo "_Noch keine Eintraege._"
     fi
 }
 
@@ -95,7 +95,7 @@ write_section() {
     printf '%s\n' '---'
     printf '\n'
     printf '# Index\n\n'
-    printf 'Primary entrypoint for Codian persistent memory. Read first.\n\n'
+    printf 'Zentraler Einstiegspunkt fuer Codex'\'' Wissens-Vault. Bei jedem Session-Start lesen.\n\n'
     printf '## Projects\n\n'
     write_section "$TMP_PROJECTS"
     printf '\n\n## Decisions\n\n'

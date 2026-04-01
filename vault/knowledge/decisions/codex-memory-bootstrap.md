@@ -15,18 +15,18 @@ decay_rate: stable
 
 # Codian Memory Bootstrap
 
-On 2026-04-01, a dedicated Codex memory system was created beside the existing Claude vault.
+Am 2026-04-01 wurde neben dem bestehenden Claude-Vault ein eigenes Codex-Gedaechtnis-System angelegt.
 
-Codex should use `~/AGENTS.md` as the operational entrypoint and `~/codexVault/vault/` as the persistent knowledge store.
+Codex nutzt `~/AGENTS.md` als operativen Einstiegspunkt und `~/codexVault/vault/` als persistentes Wissensspeicher-System.
 
-The write model is:
+Das Schreibmodell ist:
 
-1. Read [[INDEX]] at session start.
-2. Read only relevant notes.
-3. Write durable knowledge only.
-4. Update [[INDEX]] after each note change.
+1. [[INDEX]] bei Session-Start lesen
+2. Nur relevante Notes laden
+3. Nur dauerhaftes Wissen schreiben
+4. [[INDEX]] nach jeder Note-Aenderung aktualisieren
 
 ## Related
 
-- [[codexvault-overview]]
+- [[codian-overview]]
 - [[conventions]]
