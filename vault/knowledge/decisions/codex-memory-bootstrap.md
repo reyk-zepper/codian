@@ -1,10 +1,10 @@
 ---
-title: "Codex Memory Bootstrap"
+title: "Codian Memory Bootstrap"
 category: decisions
 tags:
   - decision
   - architecture
-  - project/codexvault
+  - project/codian
 created: 2026-04-01
 updated: 2026-04-01
 status: current
@@ -13,7 +13,7 @@ source: codex
 decay_rate: stable
 ---
 
-# Codex Memory Bootstrap
+# Codian Memory Bootstrap
 
 On 2026-04-01, a dedicated Codex memory system was created beside the existing Claude vault.
 

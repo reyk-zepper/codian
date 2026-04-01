@@ -1,8 +1,8 @@
 ---
-title: "CodexVault Overview"
+title: "Codian Overview"
 category: projects
 tags:
-  - project/codexvault
+  - project/codian
   - architecture
   - active
 created: 2026-04-01
@@ -13,9 +13,9 @@ source: codex
 decay_rate: stable
 ---
 
-# CodexVault Overview
+# Codian Overview
 
-CodexVault is Codex's dedicated persistent memory on this Mac.
+Codian is Codex's dedicated persistent memory system on this Mac.
 
 It lives at `/Users/reykz/codexVault/vault/` and mirrors the Claude setup with separate ownership and indexing.
 

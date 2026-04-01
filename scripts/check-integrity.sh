@@ -1,11 +1,16 @@
 #!/bin/bash
+# check-integrity.sh
+# Validates the vault's integrity: filenames, frontmatter, links, depth, index, and graph.
+# Exit 0 if all checks pass, exit 1 if any issues are found.
+
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 VAULT_DIR="$SCRIPT_DIR/../vault"
 KNOWLEDGE_DIR="$VAULT_DIR/knowledge"
+INDEX_FILE="$VAULT_DIR/INDEX.md"
 
-TOTAL_CHECKS=6
+TOTAL_CHECKS=9
 PASSED=0
 TOTAL_ISSUES=0
 
@@ -55,7 +60,7 @@ check_filename_rules() {
         bn="$(basename "$filepath")"
         [ "$bn" = "_overview.md" ] && continue
         if ! [[ "$bn" =~ ^[a-z0-9-]+\.md$ ]]; then
-            issues+=("  - $(rel_path "$filepath"): invalid filename '$bn'")
+            issues+=("  - $(rel_path "$filepath"): filename '$bn' does not match ^[a-z0-9-]+\\.md$")
         fi
     done < <(find "$KNOWLEDGE_DIR" -name "*.md" -print0 | sort -z)
 
@@ -177,7 +182,7 @@ check_depth() {
         rel="${filepath#"$VAULT_DIR/"}"
         depth=$(printf '%s' "$rel" | tr -cd '/' | wc -c | tr -d ' ')
         if [ "$depth" -gt 3 ]; then
-            issues+=("  - $(rel_path "$filepath"): path is too deep")
+            issues+=("  - $(rel_path "$filepath"): path is $((depth + 1)) levels deep (max 4 components)")
         fi
     done < <(find "$KNOWLEDGE_DIR" -name "*.md" -not -name "_overview.md" -print0 | sort -z)
 
@@ -191,17 +196,113 @@ check_depth() {
     fi
 }
 
+check_index_completeness() {
+    local issues=()
+
+    if [ ! -f "$INDEX_FILE" ]; then
+        echo "[FAIL] Index completeness"
+        echo "  - INDEX.md not found at $INDEX_FILE"
+        TOTAL_ISSUES=$((TOTAL_ISSUES + 1))
+        return
+    fi
+
+    for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
+        local bn
+        bn="$(basename "$filepath" .md)"
+        if ! grep -qF "[[$bn]]" "$INDEX_FILE"; then
+            issues+=("  - $(rel_path "$filepath"): [[$bn]] not found in INDEX.md")
+        fi
+    done
+
+    if [ "${#issues[@]}" -eq 0 ]; then
+        echo "[PASS] Index completeness"
+        PASSED=$((PASSED + 1))
+    else
+        echo "[FAIL] Index completeness"
+        for line in "${issues[@]}"; do echo "$line"; done
+        TOTAL_ISSUES=$((TOTAL_ISSUES + ${#issues[@]}))
+    fi
+}
+
+check_orphans() {
+    local issues=()
+    local skip_names="INDEX.md README.md _overview.md conventions.md"
+    local all_targets
+    all_targets="$(mktemp)"
+
+    for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
+        extract_wikilinks "$filepath"
+    done > "$all_targets"
+    [ -f "$INDEX_FILE" ] && extract_wikilinks "$INDEX_FILE" >> "$all_targets"
+
+    for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
+        local bn stem
+        bn="$(basename "$filepath")"
+        stem="$(basename "$filepath" .md)"
+
+        local skip=false
+        for sf in $skip_names; do
+            [ "$bn" = "$sf" ] && { skip=true; break; }
+        done
+        [ "$skip" = true ] && continue
+
+        if ! grep -qE "^${stem}(\|.*)?$" "$all_targets"; then
+            issues+=("  - $(rel_path "$filepath"): orphan (no incoming links)")
+        fi
+    done
+
+    rm -f "$all_targets"
+
+    if [ "${#issues[@]}" -eq 0 ]; then
+        echo "[PASS] Orphan notes"
+        PASSED=$((PASSED + 1))
+    else
+        echo "[WARN] Orphan notes"
+        for line in "${issues[@]}"; do echo "$line"; done
+        PASSED=$((PASSED + 1))
+    fi
+}
+
+check_deadends() {
+    local issues=()
+
+    for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
+        local bn
+        bn="$(basename "$filepath")"
+        [ "$bn" = "_overview.md" ] && continue
+
+        local link_count
+        link_count=$(extract_wikilinks "$filepath" | wc -l | tr -d ' ')
+        if [ "$link_count" -eq 0 ]; then
+            issues+=("  - $(rel_path "$filepath"): dead-end (no outgoing links)")
+        fi
+    done
+
+    if [ "${#issues[@]}" -eq 0 ]; then
+        echo "[PASS] Dead-end notes"
+        PASSED=$((PASSED + 1))
+    else
+        echo "[WARN] Dead-end notes"
+        for line in "${issues[@]}"; do echo "$line"; done
+        PASSED=$((PASSED + 1))
+    fi
+}
+
 check_filename_rules
 check_frontmatter_presence
 check_required_fields
 check_category_match
 check_broken_wikilinks
 check_depth
+check_index_completeness
+check_orphans
+check_deadends
 
 echo
-echo "Passed $PASSED/$TOTAL_CHECKS checks"
+echo "Summary: $PASSED/$TOTAL_CHECKS checks passed, $TOTAL_ISSUES issues found"
 
-if [ "$TOTAL_ISSUES" -gt 0 ]; then
-    echo "Found $TOTAL_ISSUES issue(s)"
+if [ "$TOTAL_ISSUES" -eq 0 ]; then
+    exit 0
+else
     exit 1
 fi

@@ -1,46 +1,82 @@
-# CodexVault - Persistent Memory System
+# Codian - Persistent Memory System
 
 Codex has a persistent knowledge vault at `/Users/reykz/codexVault/vault/`.
-This vault is Codex's long-term memory and persists across conversations and projects.
+This vault is Codex's long-term memory and persists across conversations and projects on this Mac.
 
-## Session Start Protocol
+## Session-Start Protocol
 
-1. Read `/Users/reykz/codexVault/vault/INDEX.md`.
-2. If the task relates to indexed topics, read the relevant notes before answering.
-3. Never load the full vault. Read only what is relevant.
+1. Read `/Users/reykz/codexVault/vault/INDEX.md` to see what knowledge exists.
+2. If the user's task overlaps with indexed topics, read only the relevant notes before answering.
+3. Never load the full vault. Retrieve narrowly and only when useful.
 
 ## When To Write
 
 Write or update notes when:
 - a new project matters across sessions
-- a decision is made
+- a durable decision is made
 - user preferences become visible
-- domain knowledge is established or corrected
+- reusable domain knowledge is established or corrected
 - the user explicitly asks you to remember something
 
 Do not write when:
-- the information is transient
-- the question has no lasting value
-- the information already exists clearly in project files
+- the information is transient debugging noise
+- the question is one-off and has no durable value
+- the information already exists clearly in project files and does not need cross-project memory
 
 ## Write-Then-Index Pattern
 
-1. Write or update the note in the correct `knowledge/` folder.
-2. Update `vault/INDEX.md` immediately.
-3. Update the note's `updated:` field.
+For every vault write:
+1. write or update the note in the correct `knowledge/` category
+2. update `vault/INDEX.md` immediately
+3. update the note's `updated:` field
 
-## Quick Rules
+## Vault Rules
 
 - Vault path: `/Users/reykz/codexVault/vault/`
 - Filenames: `[a-z0-9-]`, English ASCII only
 - Frontmatter fields: `title`, `category`, `tags`, `created`, `updated`, `status`, `confidence`, `source`, `decay_rate`
 - Internal links: `[[note-name]]`
 - Never overwrite content under `## User Notes`
-- Max depth: 3 levels under `vault/`
-- Categories: `projects`, `decisions`, `user-profile`, `domain`
-- Full rules: `vault/_meta/conventions.md`
+- Max depth: 3 levels below `vault/`
+- Notes follow the active conversation language
+- Categories are exactly `projects`, `decisions`, `user-profile`, `domain`
+- Prefer precise edits for existing notes instead of full rewrites
+- Full rules live in `vault/_meta/conventions.md`
 
-## Scripts
+## Index Format
+
+`vault/INDEX.md` is grouped by:
+
+    ## Projects
+    - [[note-name]] - Summary (updated: YYYY-MM-DD, status: current)
+
+    ## Decisions
+    - [[note-name]] - Summary (updated: YYYY-MM-DD, status: current)
+
+    ## User Profile
+    - [[note-name]] - Summary (updated: YYYY-MM-DD, status: current)
+
+    ## Domain
+    - [[note-name]] - Summary (updated: YYYY-MM-DD, status: current)
+
+## Tooling
+
+### Obsidian CLI
+
+If available, use `vault="codexVault"` for operations where Obsidian is better than raw file edits:
+
+- `obsidian move path="knowledge/old/note.md" to="knowledge/new/" vault="codexVault"`
+- `obsidian rename file="note" name="new-name" vault="codexVault"`
+- `obsidian delete file="note" vault="codexVault"`
+- `obsidian property:set file="note" name="key" value="val" vault="codexVault"`
+- `obsidian property:remove file="note" name="key" vault="codexVault"`
+- `obsidian unresolved vault="codexVault"`
+- `obsidian orphans vault="codexVault"`
+- `obsidian deadends vault="codexVault"`
+- `obsidian backlinks file="note" vault="codexVault"`
+- `obsidian search:context query="..." vault="codexVault"`
+
+### Scripts
 
 - `bash /Users/reykz/codexVault/scripts/rebuild-index.sh`
 - `bash /Users/reykz/codexVault/scripts/check-integrity.sh`

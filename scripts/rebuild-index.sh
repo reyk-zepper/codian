@@ -90,12 +90,12 @@ write_section() {
 
 {
     printf '%s\n' '---'
-    printf 'title: "CodexVault Index"\n'
+    printf 'title: "Codian Index"\n'
     printf 'updated: %s\n' "$TODAY"
     printf '%s\n' '---'
     printf '\n'
     printf '# Index\n\n'
-    printf 'Primary entrypoint for Codex persistent memory. Read first.\n\n'
+    printf 'Primary entrypoint for Codian persistent memory. Read first.\n\n'
     printf '## Projects\n\n'
     write_section "$TMP_PROJECTS"
     printf '\n\n## Decisions\n\n'
