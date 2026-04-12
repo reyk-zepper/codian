@@ -5,7 +5,7 @@ tags:
   - preference
   - workflow
 created: 2026-04-01
-updated: 2026-04-01
+updated: 2026-04-12
 status: current
 confidence: medium
 source: codex
@@ -32,6 +32,9 @@ decay_rate: fast
 - Transparenz bei Entscheidungen
 - Selbstorganisiertes Wissensmanagement
 - Korrekturbereitschaft - User-Feedback sofort umsetzen
+- Codian aktiv als primaeres Langzeitgedaechtnis nutzen, nicht nur passiv mitfuehren
+- Relevante Informationen zur Person, zu Projekten und zu wiederkehrenden Arbeitsmustern systematisch speichern
+- Die Vault-Struktur eigenstaendig weiterentwickeln, wenn dadurch Retrieval und Arbeitsgeschwindigkeit steigen
 
 ## Related
 

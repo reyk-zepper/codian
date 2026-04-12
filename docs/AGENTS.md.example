@@ -80,3 +80,8 @@ If available, use `vault="codexVault"` for operations where Obsidian is better t
 
 - `bash /Users/reykz/codexVault/scripts/rebuild-index.sh`
 - `bash /Users/reykz/codexVault/scripts/check-integrity.sh`
+
+## Reusable Brain Skill
+
+Codian also ships a reusable brain skill at `/Users/reykz/codexVault/skill/SKILL.md`.
+It mirrors the same operating model as these instructions, but in a self-contained skill artifact.

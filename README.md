@@ -12,10 +12,14 @@ Codian gives Codex a self-organized long-term memory with transparent markdown n
 
 - Persistent cross-session memory for Codex
 - Just-in-time retrieval via `INDEX.md` instead of loading everything
+- Fast retrieval via `query-memory.sh` for ranked note lookup
+- Warm-start session briefing via `session-brief.sh`
 - Obsidian-compatible vault structure
 - Explicit conventions for filenames, frontmatter, tags, and links
 - Integrity checks for filenames, metadata, links, index completeness, orphans, and dead-ends
 - Rebuildable index from note metadata
+- `Recent Updates` in `INDEX.md` for lower-friction session starts
+- Local test coverage for the core memory scripts
 - Separate brain from Claude while preserving the same workflow shape
 
 ### Local Paths
@@ -29,7 +33,9 @@ Codian gives Codex a self-organized long-term memory with transparent markdown n
 ```text
 codexVault/
 |- docs/
+|- skill/
 |- scripts/
+|- tests/
 `- vault/
    |- INDEX.md
    |- README.md
@@ -59,6 +65,7 @@ codexVault/
 ### Verification
 
 ```bash
+bash tests/test-codian-tools.sh
 bash scripts/check-integrity.sh
 bash scripts/rebuild-index.sh
 ```
@@ -67,7 +74,11 @@ bash scripts/rebuild-index.sh
 
 - `bash scripts/rebuild-index.sh` rebuilds `vault/INDEX.md`
 - `bash scripts/check-integrity.sh` validates vault health
+- `bash scripts/query-memory.sh <query>` returns ranked note hits for targeted retrieval
+- `bash scripts/session-brief.sh [query]` prints a compact warm-start briefing for a session
+- `bash tests/test-codian-tools.sh` verifies the core tools against an isolated temporary vault
 - If Obsidian CLI is available, use `vault="codexVault"` for move, rename, delete, property, backlink, unresolved, orphan, and dead-end operations
+- `skill/SKILL.md` documents the reusable Codian brain workflow for active memory usage
 
 ## Deutsch
 
@@ -83,8 +94,11 @@ Codian gibt Codex auf diesem Mac ein eigenes, persistentes Langzeitgedaechtnis. 
 ### Pflege
 
 - `INDEX.md` ist der Einstiegspunkt
+- `INDEX.md` enthaelt auch die zuletzt aktualisierten Notes fuer schnelleren Kontextaufbau
 - `_meta/conventions.md` ist das Regelwerk
 - `knowledge/` enthaelt das eigentliche Wissen
+- `skill/` beschreibt das Brain-Modell repo-lokal
+- `tests/` prueft die zentralen Retrieval- und Integrity-Werkzeuge
 
 ## Status
 

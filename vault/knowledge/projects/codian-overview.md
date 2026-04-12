@@ -6,7 +6,7 @@ tags:
   - architecture
   - active
 created: 2026-04-01
-updated: 2026-04-01
+updated: 2026-04-12
 status: current
 confidence: high
 source: codex
@@ -37,6 +37,14 @@ Codex' persistentes Gedaechtnis-System basierend auf einem Obsidian-Vault. Dient
 - Index-System: Funktional
 - Shell-Tooling: Funktional
 - Erster Live-Test: 2026-04-01
+
+## Operative Erweiterungen
+
+- `scripts/query-memory.sh` liefert schnelle, priorisierte Note-Treffer fuer gezieltes Retrieval
+- `scripts/session-brief.sh` erzeugt einen kompakten Warm-Start mit Recent Updates, User-Praeferenzen und Query-Matches
+- Maintenance-Skripte akzeptieren `CODIAN_VAULT_DIR`, damit sie gegen temporaere Test-Vaults und alternative Roots laufen koennen
+- `INDEX.md` enthaelt einen `Recent Updates`-Block fuer schnelleren Session-Start
+- Eine lokale Test-Suite prueft die Kernwerkzeuge gegen einen isolierten Beispiel-Vault
 
 ## Related
 

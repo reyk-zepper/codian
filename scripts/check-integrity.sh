@@ -6,7 +6,7 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-VAULT_DIR="$SCRIPT_DIR/../vault"
+VAULT_DIR="${CODIAN_VAULT_DIR:-$SCRIPT_DIR/../vault}"
 KNOWLEDGE_DIR="$VAULT_DIR/knowledge"
 INDEX_FILE="$VAULT_DIR/INDEX.md"
 
@@ -14,10 +14,28 @@ TOTAL_CHECKS=9
 PASSED=0
 TOTAL_ISSUES=0
 
+list_markdown_files() {
+    local root="$1"
+
+    if command -v rg >/dev/null 2>&1; then
+        (
+            cd "$root"
+            rg --files -g '*.md' . | LC_ALL=C sort
+        ) | sed -e 's#^\./##' -e "s#^#$root/#"
+    else
+        find "$root" -name "*.md" -print0 | LC_ALL=C sort -z | tr '\0' '\n'
+    fi
+}
+
 ALL_NOTES=()
-while IFS= read -r -d '' f; do
+while IFS= read -r f; do
     ALL_NOTES+=("$f")
-done < <(find "$KNOWLEDGE_DIR" -name "*.md" -not -name "_overview.md" -print0 | sort -z)
+done < <(list_markdown_files "$KNOWLEDGE_DIR" | grep -v '/_overview\.md$')
+
+ALL_MARKDOWN=()
+while IFS= read -r f; do
+    ALL_MARKDOWN+=("$f")
+done < <(list_markdown_files "$VAULT_DIR")
 
 extract_field() {
     local file="$1"
@@ -55,14 +73,15 @@ extract_wikilinks() {
 
 check_filename_rules() {
     local issues=()
-    while IFS= read -r -d '' filepath; do
+    for filepath in "${ALL_MARKDOWN[@]+"${ALL_MARKDOWN[@]}"}"; do
         local bn
         bn="$(basename "$filepath")"
         [ "$bn" = "_overview.md" ] && continue
+        [[ "$filepath" != "$KNOWLEDGE_DIR/"* ]] && continue
         if ! [[ "$bn" =~ ^[a-z0-9-]+\.md$ ]]; then
             issues+=("  - $(rel_path "$filepath"): filename '$bn' does not match ^[a-z0-9-]+\\.md$")
         fi
-    done < <(find "$KNOWLEDGE_DIR" -name "*.md" -print0 | sort -z)
+    done
 
     if [ "${#issues[@]}" -eq 0 ]; then
         echo "[PASS] Filename rules"
@@ -147,9 +166,9 @@ check_broken_wikilinks() {
     local known_stems_file
     known_stems_file="$(mktemp)"
 
-    find "$VAULT_DIR" -name "*.md" -print0 \
-        | while IFS= read -r -d '' f; do basename "$f" .md; done \
-        > "$known_stems_file"
+    for f in "${ALL_MARKDOWN[@]+"${ALL_MARKDOWN[@]}"}"; do
+        basename "$f" .md
+    done > "$known_stems_file"
 
     for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
         while IFS= read -r link; do
@@ -177,14 +196,14 @@ check_broken_wikilinks() {
 
 check_depth() {
     local issues=()
-    while IFS= read -r -d '' filepath; do
+    for filepath in "${ALL_NOTES[@]+"${ALL_NOTES[@]}"}"; do
         local rel depth
         rel="${filepath#"$VAULT_DIR/"}"
         depth=$(printf '%s' "$rel" | tr -cd '/' | wc -c | tr -d ' ')
         if [ "$depth" -gt 3 ]; then
             issues+=("  - $(rel_path "$filepath"): path is $((depth + 1)) levels deep (max 4 components)")
         fi
-    done < <(find "$KNOWLEDGE_DIR" -name "*.md" -not -name "_overview.md" -print0 | sort -z)
+    done
 
     if [ "${#issues[@]}" -eq 0 ]; then
         echo "[PASS] Depth check"
