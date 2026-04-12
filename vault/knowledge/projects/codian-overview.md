@@ -42,6 +42,11 @@ Codex' persistentes Gedaechtnis-System basierend auf einem Obsidian-Vault. Dient
 
 - `scripts/query-memory.sh` liefert schnelle, priorisierte Note-Treffer fuer gezieltes Retrieval
 - `scripts/session-brief.sh` erzeugt einen kompakten Warm-Start mit Recent Updates, User-Praeferenzen und Query-Matches
+- `scripts/capture-note.sh` beschleunigt das saubere Schreiben neuer oder aktualisierter Notes
+- `scripts/project-brief.sh` buendelt projektbezogene Notes ueber Projects, Decisions, Domain und User-Kontext
+- `scripts/memory-health.sh` zeigt pflegebeduerftige oder alternde Wissenseintraege fruehzeitig
+- `scripts/close-session.sh` fasst am Session-Ende die heutigen Wissensaenderungen kompakt zusammen
+- `scripts/work-on-project.sh` kombiniert Briefing, Projektkontext und Query zu einem einzigen Einstiegspunkt
 - Maintenance-Skripte akzeptieren `CODIAN_VAULT_DIR`, damit sie gegen temporaere Test-Vaults und alternative Roots laufen koennen
 - `INDEX.md` enthaelt einen `Recent Updates`-Block fuer schnelleren Session-Start
 - Eine lokale Test-Suite prueft die Kernwerkzeuge gegen einen isolierten Beispiel-Vault

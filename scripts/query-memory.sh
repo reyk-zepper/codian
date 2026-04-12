@@ -8,6 +8,19 @@ LIMIT=8
 CATEGORY=""
 SEARCH_SCOPE="all"
 
+list_markdown_files() {
+    local root="$1"
+
+    if command -v rg >/dev/null 2>&1; then
+        (
+            cd "$root"
+            rg --files -g '*.md' . | LC_ALL=C sort
+        ) | sed -e 's#^\./##' -e "s#^#$root/#"
+    else
+        find "$root" -name "*.md" -print0 | LC_ALL=C sort -z | tr '\0' '\n'
+    fi
+}
+
 usage() {
     cat <<'EOF'
 Usage: query-memory.sh [options] <query>
@@ -111,7 +124,7 @@ QUERY="$*"
 TMP_RESULTS="$(mktemp)"
 trap 'rm -f "$TMP_RESULTS"' EXIT
 
-for file in $(find "$KNOWLEDGE_DIR" -name '*.md' -not -name '_overview.md' | LC_ALL=C sort); do
+while IFS= read -r file; do
     category="$(extract_field "$file" "category")"
     [ -n "$CATEGORY" ] && [ "$category" != "$CATEGORY" ] && continue
 
@@ -144,7 +157,7 @@ for file in $(find "$KNOWLEDGE_DIR" -name '*.md' -not -name '_overview.md' | LC_
         printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
             "$score" "$updated" "$stem" "$category" "$status" "$title" "$file" >> "$TMP_RESULTS"
     fi
-done
+done < <(list_markdown_files "$KNOWLEDGE_DIR" | grep -v '/_overview\.md$')
 
 if [ ! -s "$TMP_RESULTS" ]; then
     echo "No memory hits for query: $QUERY"

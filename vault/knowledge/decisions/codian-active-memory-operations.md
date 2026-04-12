@@ -30,6 +30,7 @@ Ab 2026-04-12 wird Codian nicht nur als statischer Notizspeicher behandelt, sond
 - Reusable Guidance wie Skill- und Kategorien-Referenzen liegen repo-lokal vor, damit das Arbeitsmodell nicht nur in globalen Instruktionen steckt.
 - Durable Wissensverdichtung ist wichtiger als reine Datensammlung: lieber wenige praezise Notes als viel flaches Rauschen.
 - Ein schneller Query-Pfad und ein kompaktes Session-Briefing sind Kernwerkzeuge, damit Codian im Alltag aktiv genutzt wird.
+- Schnelles Capturing und ein priorisierter Health-Check gehoeren zur operativen Grundausstattung von Codian.
 
 ## Related
 

@@ -76,6 +76,11 @@ bash scripts/rebuild-index.sh
 - `bash scripts/check-integrity.sh` validates vault health
 - `bash scripts/query-memory.sh <query>` returns ranked note hits for targeted retrieval
 - `bash scripts/session-brief.sh [query]` prints a compact warm-start briefing for a session
+- `bash scripts/capture-note.sh ...` creates or updates notes with valid frontmatter and auto-indexing
+- `bash scripts/project-brief.sh <slug>` aggregates all notes tagged with `project/<slug>`
+- `bash scripts/memory-health.sh` highlights high-attention and stale-note candidates
+- `bash scripts/close-session.sh` gives a compact end-of-session memory checkpoint
+- `bash scripts/work-on-project.sh <slug> [query]` combines session, project, and retrieval context into one workbench
 - `bash tests/test-codian-tools.sh` verifies the core tools against an isolated temporary vault
 - If Obsidian CLI is available, use `vault="codexVault"` for move, rename, delete, property, backlink, unresolved, orphan, and dead-end operations
 - `skill/SKILL.md` documents the reusable Codian brain workflow for active memory usage

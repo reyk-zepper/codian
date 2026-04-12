@@ -14,6 +14,11 @@ Codex' persistentes Gedaechtnis-Vault. Dieses Vault wird von Codex (der Notes sc
 
 - `bash ../scripts/query-memory.sh <query>` fuer gezielte Retrieval-Suchen
 - `bash ../scripts/session-brief.sh [query]` fuer einen kompakten Session-Start
+- `bash ../scripts/capture-note.sh ...` fuer schnelles, konsistentes Erfassen neuer Notes
+- `bash ../scripts/project-brief.sh <slug>` fuer projektbezogenen Kontext ueber alle Kategorien
+- `bash ../scripts/memory-health.sh` fuer Priorisierung von Pflege und Aktualisierung
+- `bash ../scripts/close-session.sh` fuer einen kompakten Session-Abschluss
+- `bash ../scripts/work-on-project.sh <slug> [query]` fuer einen fokussierten Projekt-Einstieg
 
 ## Ordnerstruktur
 
