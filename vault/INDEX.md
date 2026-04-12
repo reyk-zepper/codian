@@ -10,15 +10,16 @@ Zentraler Einstiegspunkt fuer Codex' Wissens-Vault. Bei jedem Session-Start lese
 ## Recent Updates
 
 - [[preferences]] - Benutzer-Praeferenzen (updated: 2026-04-12, status: current)
+- [[collaboration-memory-patterns]] - Collaboration Memory Patterns (updated: 2026-04-12, status: current)
+- [[codian-roadmap]] - Codian Roadmap (updated: 2026-04-12, status: current)
 - [[codian-overview]] - Codian Project Overview (updated: 2026-04-12, status: current)
 - [[codian-ops-patterns]] - Codian Ops Patterns (updated: 2026-04-12, status: current)
-- [[codian-active-memory-operations]] - Codian Active Memory Operations (updated: 2026-04-12, status: current)
-- [[home-server-mcp-access]] - Homeserver: MCP-Zugriffsgrenzen (updated: 2026-04-11, status: current)
 
 
 ## Projects
 
 - [[codian-overview]] - Codian Project Overview (updated: 2026-04-12, status: current)
+- [[codian-roadmap]] - Codian Roadmap (updated: 2026-04-12, status: current)
 
 
 ## Decisions
@@ -38,6 +39,7 @@ Zentraler Einstiegspunkt fuer Codex' Wissens-Vault. Bei jedem Session-Start lese
 ## Domain
 
 - [[codian-ops-patterns]] - Codian Ops Patterns (updated: 2026-04-12, status: current)
+- [[collaboration-memory-patterns]] - Collaboration Memory Patterns (updated: 2026-04-12, status: current)
 - [[home-server-mcp-access]] - Homeserver: MCP-Zugriffsgrenzen (updated: 2026-04-11, status: current)
 - [[local-backup-restore-runbook]] - Lokales Backup: Restore Runbook (updated: 2026-04-07, status: current)
 

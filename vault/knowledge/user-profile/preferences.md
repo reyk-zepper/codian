@@ -40,5 +40,10 @@ decay_rate: fast
 
 - [[codian-overview]]
 - [[role-and-identity]]
+- [[collaboration-memory-patterns]]
+
+## Update 2026-04-12
+
+Der User will, dass Codian aktiv als primaeres Arbeitsgedaechtnis genutzt wird. Nach erfolgreichem Ausbau soll Codex die neuen Workflows im Alltag direkt verwenden statt weiter abstrakt ueber Infrastruktur zu sprechen. Autonome Fortsetzung ist gewuenscht, solange sie praktischen Nutzen fuer kuenftige Sessions schafft.
 
 ## User Notes
